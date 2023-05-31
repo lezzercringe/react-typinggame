@@ -57,6 +57,8 @@ export const TextField = () => {
             key={idx}
             isEntered={enteredText.length >= idx + 1}
             letter={letter}
+            //@eslint-disable-next-line
+            //@ts-ignore
             refLink={(el) => (letterRefs.current[idx] = el)}
             isCorrect={
               enteredText.length >= idx + 1 && enteredText[idx] === letter

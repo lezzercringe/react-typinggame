@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { Link as LinkType } from "types/Link";
 import { AppNavLink } from "./AppNavLink";
 import { Icon } from "@iconify/react/dist/iconify.js";

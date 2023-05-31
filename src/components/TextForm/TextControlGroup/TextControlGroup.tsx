@@ -1,4 +1,3 @@
-import { useTextStore } from "store/useTextStore";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
 type Props = {
@@ -7,7 +6,6 @@ type Props = {
 };
 
 export const TextControlGroup = ({ currentTime: time, timerRef }: Props) => {
-  const enteredTextLength = useTextStore((state) => state.enteredText).length;
   return (
     <div className="h-6 w-full">
       {timerRef ? (
