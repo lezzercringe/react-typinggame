@@ -1,0 +1,16 @@
+.correct {
+  color: rgba(0,0,0, .9);
+}
+
+.incorrect {
+  color: rgba(253, 55, 55, 0.6)
+}
+
+.letter {
+  font-size: 18px;
+}
+
+.beam {
+  width: 2px;
+  height: 18px;
+}
