@@ -8,6 +8,11 @@ export const MainLayout = () => {
       title: "Home",
       href: "/",
     },
+    {
+      id: 1,
+      title: "Sign in",
+      href: "/auth",
+    },
   ];
 
   return (
