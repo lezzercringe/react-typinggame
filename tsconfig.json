@@ -25,7 +25,8 @@
       "types/*": ["types/*"],
       "store/*": ["store/*"],
       "utils/*": ["utils/*"],
-      "hooks/*": ["hooks/*"]
+      "hooks/*": ["hooks/*"],
+      "apifirebase/*": ["apifirebase/*"],
     }
 
   },

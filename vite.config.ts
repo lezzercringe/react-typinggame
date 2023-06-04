@@ -12,6 +12,7 @@ export default defineConfig({
       store: "/src/store",
       utils: "/src/utils",
       hooks: "/src/hooks",
+      apifirebase: "/src/apifirebase",
     },
   },
 });
