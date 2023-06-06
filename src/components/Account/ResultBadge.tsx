@@ -1,4 +1,4 @@
-import { parse, formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import { Result } from "types/ResultsData";
 
 type Props = {
