@@ -3,4 +3,5 @@ export type Link = {
   title: string;
   id: number;
   noAuth: boolean;
+  requireAuth?: boolean;
 };

@@ -23,24 +23,28 @@ export const AuthPage = () => {
   };
 
   const handleSubmit = (user: AuthFormData) => {
-    AuthFormSchema.parse(user);
+    try {
+      AuthFormSchema.parse(user);
 
-    authMode
-      ? registerUser(user, auth)
-          .then(redirect)
-          .catch((e) => {
-            setSubmitError(getAuthErrorData(e));
-          })
-      : loginUser(user, auth)
-          .then(redirect)
-          .catch((e) => {
-            setSubmitError(getAuthErrorData(e));
-          });
+      authMode
+        ? registerUser(user, auth)
+            .then(redirect)
+            .catch((e) => {
+              setSubmitError(getAuthErrorData(e));
+            })
+        : loginUser(user, auth)
+            .then(redirect)
+            .catch((e) => {
+              setSubmitError(getAuthErrorData(e));
+            });
+    } catch (e) {
+      setSubmitError({ cause: "email", message: "Invalid email" });
+    }
   };
 
   return (
-    <div className="flex w-full justify-center">
-      <div className="flex w-96 flex-col space-y-3">
+    <div className="flex h-96 w-full items-center justify-center">
+      <div className="flex w-96 flex-col space-y-3 ">
         {/* auth form depending on mode */}
         <AuthForm
           submitError={submitError}

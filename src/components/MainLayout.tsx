@@ -18,7 +18,16 @@ export const MainLayout = () => {
       href: "/auth",
       noAuth: true,
     },
-  ].filter((link) => !(isAuth === link.noAuth && link.noAuth));
+    {
+      id: 2,
+      title: "Account",
+      href: "/account",
+      noAuth: false,
+      requireAuth: true,
+    },
+  ]
+    .filter((link) => !(isAuth === link.noAuth && link.noAuth))
+    .filter((link) => !(isAuth !== link.requireAuth && link.requireAuth));
 
   return (
     <>

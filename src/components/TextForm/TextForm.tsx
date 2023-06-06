@@ -1,8 +1,11 @@
 import { TextControlGroup, TextField } from ".";
 import { Result } from "./Result/Result";
 import { useTimer } from "hooks/useTimer";
+import { useCleanup } from "hooks/useCleanup";
 export const TextForm = () => {
   const [isFinished, time, timerRef] = useTimer();
+
+  useCleanup();
 
   return (
     <div className="mt-36 flex w-full items-center justify-center ">

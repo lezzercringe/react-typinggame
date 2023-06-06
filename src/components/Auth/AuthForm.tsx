@@ -29,7 +29,7 @@ export const AuthForm: FC<Props> = ({ authMode, onSubmit, submitError }) => {
       <div className="flex flex-col  space-y-3">
         <Input
           name="email"
-          placeholder="email"
+          placeholder="Email"
           registration={register("email", {
             required: "(*) This field is required",
             pattern: {
