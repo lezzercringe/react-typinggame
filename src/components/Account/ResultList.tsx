@@ -18,7 +18,11 @@ export const ResultList = () => {
       setIsLoading(true);
       fetchUserResults(uid, ref(database))
         .then((results) => {
-          setResultsData(unpackResults(results.val()));
+          setResultsData(
+            unpackResults(results.val())
+              .slice(-5, results.val().length)
+              .reverse()
+          );
         })
         .catch((e) => console.log(e))
         .finally(() => setIsLoading(false));
