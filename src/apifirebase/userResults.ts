@@ -15,6 +15,7 @@ export const unpackResults = (data: unpackResultsData): Result[] => {
     exitArr.push({
       wpm: data[key].wpm,
       date: data[key].date,
+      mistakesCount: data[key].mistakesCount,
       id: key,
     });
   }

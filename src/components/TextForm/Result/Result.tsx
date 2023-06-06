@@ -5,13 +5,25 @@ import { useEffect, useState } from "react";
 import { useTextStore } from "store/useTextStore";
 import { useTimerStore } from "store/useTimerStore";
 import { useUserStore } from "store/useUserStore";
+import { countMistakes } from "utils/countMistakes";
 
 export const Result = () => {
   const database = getDatabase();
   const uid = useUserStore((state) => state.user?.uid);
+
+  // ui needed states
   const [isResultSaved, toggleIsResultSaved] = useToggle(false);
   const [isResultSavedSuccess, toggleIsResultSavedSuccess] = useToggle(false);
-  const currentText = useTextStore((state) => state.text);
+
+  // store states
+  const { currentText, enteredText, resetEnteredText } = useTextStore(
+    (state) => ({
+      currentText: state.text,
+      enteredText: state.enteredText,
+      resetEnteredText: state.resetEnteredText,
+    })
+  );
+
   const [textWordsCount, setTextWordsCount] = useState<number>(0);
   useEffect(() => {
     setTextWordsCount(currentText.split(" ").length);
@@ -22,14 +34,13 @@ export const Result = () => {
     setTime: state.setTime,
   }));
 
-  const resetEnteredText = useTextStore((state) => state.resetEnteredText);
-
   const restart = () => {
     setTime(0);
     resetEnteredText();
   };
   const countedWPM = Math.floor(textWordsCount / (time / 60));
 
+  const { count: mistakesCount } = countMistakes(enteredText, currentText);
   const onSaveResult = () => {
     toggleIsResultSaved();
 
@@ -38,6 +49,7 @@ export const Result = () => {
     }
     set(ref(database, `results/${uid}/${Date.now()}`), {
       wpm: countedWPM,
+      mistakesCount: mistakesCount,
       date: new Date(Date.now()).toUTCString(),
     }).then(() => {
       toggleIsResultSavedSuccess();
@@ -46,7 +58,9 @@ export const Result = () => {
 
   return (
     <>
-      <div className="mt-5">Result is {countedWPM} WPM. Good!</div>
+      <div className="mt-5">
+        Result is {countedWPM} WPM. Good! Count of mistakes is {mistakesCount}.
+      </div>
       <button
         onClick={restart}
         className="mt-5 rounded p-2 text-blue-500 transition-all hover:text-blue-600"

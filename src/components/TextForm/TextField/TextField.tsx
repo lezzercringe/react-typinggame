@@ -23,13 +23,19 @@ export const TextField = () => {
     })
   );
 
+  const handleAddLetter = (letter: string) => {
+    if (!(currentText[enteredText.length] === " " && letter !== " ")) {
+      addLetter(letter);
+    }
+  };
+
   useKeyPress(
     (key) => {
       if (currentText.length !== enteredText.length) {
         if (key === "Backspace") {
           removeLetter();
         } else {
-          addLetter(key);
+          handleAddLetter(key);
         }
       }
     },

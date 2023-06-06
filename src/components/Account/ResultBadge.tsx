@@ -9,7 +9,7 @@ type Props = {
 export const ResultBadge = ({ result }: Props) => {
   return (
     <div className="flex w-full justify-between">
-      {result.wpm} WPM
+      {result.wpm} WPM, {result.mistakesCount} mistakes
       <span className="flex items-center space-x-1 text-gray-400">
         <Icon icon="bx:alarm" />
         <span>{formatDistanceToNow(Date.parse(result.date))} ago</span>
