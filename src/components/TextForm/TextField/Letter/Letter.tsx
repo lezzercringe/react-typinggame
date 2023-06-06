@@ -11,6 +11,7 @@ export const Letter = ({ letter, isCorrect, isEntered, refLink }: Props) => {
   return (
     <span
       ref={refLink}
+      style={{ marginInline: "0.2px" }}
       className={[
         "text-xl",
         isCorrect && isEntered && "opacity-100",

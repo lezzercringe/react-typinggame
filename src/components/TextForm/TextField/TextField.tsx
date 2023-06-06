@@ -49,6 +49,7 @@ export const TextField = () => {
     <div className="h-96 w-full ">
       <div
         ref={beamRef}
+        style={{ transitionDuration: "100ms" }}
         className={["absolute bg-yellow-500 transition-all", cl.beam].join(" ")}
       ></div>
       {currentText.split("").map((letter, idx) => {

@@ -4,7 +4,7 @@ import { ResultBadge } from "./ResultBadge";
 import { getDatabase, ref } from "firebase/database";
 import { useUserStore } from "store/useUserStore";
 import { fetchUserResults, unpackResults } from "apifirebase/userResults";
-import { ClipLoader } from "react-spinners";
+import { Spinner } from "components/ui/Spinner";
 
 export const ResultList = () => {
   const database = getDatabase();
@@ -31,7 +31,7 @@ export const ResultList = () => {
       <div className="flex flex-col space-y-2 divide-y-2">
         {isLoading ? (
           <div className="flex h-20 w-full items-center justify-center">
-            <ClipLoader color="blue" />
+            <Spinner />
           </div>
         ) : resultsData.length > 0 ? (
           resultsData.map((result) => {

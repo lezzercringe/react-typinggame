@@ -4,6 +4,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { useUserStore } from "store/useUserStore";
 import { Button } from "components/ui/Button";
 import { getAuth, signOut } from "firebase/auth";
+import { NavLink } from "react-router-dom";
 
 type Props = {
   links: LinkType[];
@@ -28,19 +29,24 @@ export const Header = (props: Props) => {
           height={32}
         />
       </div>
-      <nav className="space-x-5">
+      <nav className="flex items-center space-x-5">
         {props.links.map((link) => (
           <AppNavLink key={link.id} link={link} />
         ))}
+        {isAuth && (
+          <>
+            <NavLink to={"/account"}>
+              <div className="flex items-center justify-center space-x-2 rounded bg-gray-100 p-2">
+                <Icon icon="ri:user-3-fill" />
+                <span>{currentUserEmail}</span>
+              </div>
+            </NavLink>
+            <Button onClick={signOutHandler} variant="danger">
+              <Icon icon="ri:logout-box-r-line" />
+            </Button>
+          </>
+        )}
       </nav>
-      {isAuth && (
-        <div className="space-x-4">
-          <span>{currentUserEmail}</span>
-          <Button onClick={signOutHandler} variant="danger">
-            Logout
-          </Button>
-        </div>
-      )}
     </div>
   );
 };

@@ -4,11 +4,13 @@ import { MainLayout } from "./MainLayout";
 import { Routes, Route } from "react-router-dom";
 import { AuthPage } from "pages/AuthPage";
 import { useUserStore } from "store/useUserStore";
-import { AccountPage } from "pages/AccountPage";
 import { RequireAuth } from "./RequireAuth";
+import { Suspense, lazy } from "react";
+import { Fallback } from "./ui/Fallback";
 
 export const Router = () => {
   const isAuth = useUserStore((state) => state.isAuth);
+  const AccountPage = lazy(() => import("pages/AccountPage"));
 
   return (
     <Routes>
@@ -20,7 +22,9 @@ export const Router = () => {
             path="/account"
             element={
               <RequireAuth isAuth={isAuth}>
-                <AccountPage />
+                <Suspense fallback={<Fallback />}>
+                  <AccountPage />
+                </Suspense>
               </RequireAuth>
             }
           />
