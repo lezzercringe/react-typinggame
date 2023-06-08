@@ -3,8 +3,9 @@ import { Result } from "types/ResultsData";
 import { ResultBadge } from "./ResultBadge";
 import { getDatabase, ref } from "firebase/database";
 import { useUserStore } from "store/useUserStore";
-import { fetchUserResults, unpackResults } from "apifirebase/userResults";
 import { Spinner } from "components/ui/Spinner";
+import { unpackFBresults } from "utils/unpackFBresults";
+import { fetchUserResults } from "apifirebase/baseQueries";
 
 export const ResultList = () => {
   const database = getDatabase();
@@ -19,7 +20,8 @@ export const ResultList = () => {
       fetchUserResults(uid, ref(database))
         .then((results) => {
           setResultsData(
-            unpackResults(results.val())
+            unpackFBresults<Omit<Result, "id">>(results.val())
+              .map((el, index) => ({ ...el, id: index.toString() }))
               .slice(-5, results.val().length)
               .reverse()
           );
