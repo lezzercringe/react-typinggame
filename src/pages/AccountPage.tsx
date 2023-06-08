@@ -49,7 +49,11 @@ const AccountPage = () => {
       <div className="col-span-4 row-span-2  md:col-span-2 lg:col-span-2">
         <div className="flex h-full w-full flex-col space-y-5 rounded border-2 border-gray-200 p-4">
           <h1 className="text-lg font-bold">Chart</h1>
-          {resultsData.length > 0 && <ResultsChart results={resultsData} />}
+          {resultsData.length > 0 ? (
+            <ResultsChart results={resultsData} />
+          ) : (
+            <Spinner />
+          )}
         </div>
       </div>
     </div>

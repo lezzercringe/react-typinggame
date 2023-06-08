@@ -1,6 +1,5 @@
 import { Result } from "types/ResultsData";
 import { ResultBadge } from "./ResultBadge";
-import { Spinner } from "components/ui/Spinner";
 
 type Props = {
   resultsData: Result[];
