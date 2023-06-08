@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
 type TextStore = {
-  loadedTexts: string[];
+  loadedTexts: { name: string; id: string }[];
   text: string;
   enteredText: string;
   setLoadedTexts: (data: string[]) => void;
@@ -10,6 +10,7 @@ type TextStore = {
   removeLetter: () => void;
   setText: (text: string) => void;
   resetEnteredText: () => void;
+  setTextById: (id: string) => void;
 };
 
 const TEXT =
@@ -23,7 +24,10 @@ export const useTextStore = create<TextStore>()(
     setLoadedTexts: (data: string[]) =>
       set((state) => ({
         ...state,
-        loadedTexts: data,
+        loadedTexts: data.map((text, index) => ({
+          name: text,
+          id: index.toString(),
+        })),
       })),
     setText: (payloadText: string) =>
       set((state) => ({ ...state, text: payloadText })),
@@ -36,6 +40,15 @@ export const useTextStore = create<TextStore>()(
       })),
     resetEnteredText: () => {
       set((state) => ({ ...state, enteredText: "" }));
+    },
+    setTextById: (id: string) => {
+      set((state) => {
+        const foundText = state.loadedTexts.find((el) => el.id === id) || {
+          name: "Random text",
+          id: "0",
+        };
+        return { ...state, text: foundText.name };
+      });
     },
   }))
 );

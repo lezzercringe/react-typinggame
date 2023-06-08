@@ -1,11 +1,25 @@
 import { Icon } from "@iconify/react";
+import { Dropdown } from "components/Dropdown/Dropdown";
 import { motion } from "framer-motion";
+import { useTextStore } from "store/useTextStore";
 type Props = {
   currentTime: number;
   timerRef: number | null;
 };
 
 export const TextControlGroup = ({ currentTime: time, timerRef }: Props) => {
+  const loadedTexts = useTextStore((state) => state.loadedTexts).map(
+    (text) => ({
+      ...text,
+      name: `Text ${Number(text.id) + 1}`,
+    })
+  );
+
+  const setCurrentTextById = useTextStore((state) => state.setTextById);
+  const switchText = (value: { name: string; id: string }) => {
+    setCurrentTextById(value.id);
+  };
+
   return (
     <div className="h-6 w-full">
       {timerRef ? (
@@ -23,6 +37,13 @@ export const TextControlGroup = ({ currentTime: time, timerRef }: Props) => {
         </motion.span>
       ) : (
         <span></span>
+      )}
+      {loadedTexts.length > 0 && (
+        <Dropdown
+          setValue={switchText}
+          valueArray={loadedTexts}
+          value={loadedTexts[0]}
+        />
       )}
     </div>
   );
