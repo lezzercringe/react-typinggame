@@ -1,5 +1,6 @@
 import { Button } from "components/ui/Button";
 import { getDatabase, ref, set } from "firebase/database";
+import { useRestartGame } from "hooks/useRestartGame";
 import { useToggle } from "hooks/useToggle";
 import { useEffect, useState } from "react";
 import { useTextStore } from "store/useTextStore";
@@ -34,10 +35,7 @@ export const Result = () => {
     setTime: state.setTime,
   }));
 
-  const restart = () => {
-    setTime(0);
-    resetEnteredText();
-  };
+  const restart = useRestartGame(false);
   const countedWPM = Math.floor(textWordsCount / (time / 60));
 
   const { count: mistakesCount } = countMistakes(enteredText, currentText);
