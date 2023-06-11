@@ -9,6 +9,7 @@ import { useTimerStore } from "store/useTimerStore";
 import { useUserStore } from "store/useUserStore";
 import { countMistakes } from "utils/countMistakes";
 import { ResultRow } from "./ResultRow";
+import { motion } from "framer-motion";
 
 export const Result = () => {
   const database = getDatabase();
@@ -56,7 +57,12 @@ export const Result = () => {
 
   return (
     <>
-      <div className="flex w-full flex-col space-y-5 text-gray-500 lg:w-1/2">
+      <motion.div
+        initial={{ x: -30 }}
+        animate={{ x: 0 }}
+        transition={{ duration: 0.3 }}
+        className="flex w-full flex-col space-y-5 text-gray-500 lg:w-1/2"
+      >
         <div className="flex items-center space-x-4 text-xl">
           <h1 className="text-gray-500">Result</h1>
           <button className="text-xl " onClick={restart}>
@@ -89,7 +95,7 @@ export const Result = () => {
         ) : (
           "signup to save your result"
         )}
-      </div>
+      </motion.div>
     </>
   );
 };
