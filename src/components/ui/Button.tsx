@@ -3,7 +3,7 @@ import { DetailedHTMLProps, FC } from "react";
 
 type Props = {
   title?: string;
-  variant: "primary" | "outlined" | "danger";
+  variant: "primary" | "outlined" | "danger" | "disabled";
   children?: ReactNode;
 } & DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLButtonElement>,
@@ -26,6 +26,8 @@ export const Button: FC<Props> = ({
         return "bg-red-500 text-white border-red-500 border-2 hover:text-red-500 hover:bg-white hover:border-2 hover:border-red-500";
       case "outlined":
         return "text-blue-500";
+      case "disabled":
+        return "bg-gray-500 border-none text-white";
     }
   })();
 

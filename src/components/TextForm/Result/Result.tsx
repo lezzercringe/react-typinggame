@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button } from "components/ui/Button";
 import { getDatabase, ref, set } from "firebase/database";
 import { useRestartGame } from "hooks/useRestartGame";
@@ -7,6 +8,7 @@ import { useTextStore } from "store/useTextStore";
 import { useTimerStore } from "store/useTimerStore";
 import { useUserStore } from "store/useUserStore";
 import { countMistakes } from "utils/countMistakes";
+import { ResultRow } from "./ResultRow";
 
 export const Result = () => {
   const database = getDatabase();
@@ -54,31 +56,40 @@ export const Result = () => {
 
   return (
     <>
-      <div className="mt-5">
-        Result is {countedWPM} WPM. Good! Count of mistakes is {mistakesCount}.
-      </div>
-      <button
-        onClick={restart}
-        className="mt-5 rounded p-2 text-blue-500 transition-all hover:text-blue-600"
-      >
-        Try again
-      </button>
+      <div className="flex w-full flex-col space-y-5 text-gray-500 lg:w-1/2">
+        <div className="flex items-center space-x-4 text-xl">
+          <h1 className="text-gray-500">Result</h1>
+          <button className="text-xl " onClick={restart}>
+            <Icon
+              className="rounded bg-gray-500 p-1 text-2xl text-white"
+              icon="solar:restart-bold"
+            />
+          </button>
+        </div>
+        <div className="flex flex-col space-y-3 divide-y-2">
+          <ResultRow name="WPM" value={countedWPM} />
+          <ResultRow name="Mistakes" value={mistakesCount} />
+          <ResultRow name="Entered words count" value={textWordsCount} />
+        </div>
 
-      {uid ? (
-        isResultSavedSuccess ? (
-          "Result saved successfully"
+        {uid ? (
+          !(isResultSaved && !isResultSavedSuccess) ? (
+            <Button
+              disabled={isResultSaved}
+              onClick={onSaveResult}
+              variant={isResultSaved ? "disabled" : "primary"}
+            >
+              {!isResultSaved
+                ? "Save result!"
+                : "Your result was saved successfully"}
+            </Button>
+          ) : (
+            <div className="text-red-200 ">Error happened</div>
+          )
         ) : (
-          <Button
-            disabled={isResultSaved}
-            onClick={onSaveResult}
-            variant="primary"
-          >
-            Save result!
-          </Button>
-        )
-      ) : (
-        "signup to save your result"
-      )}
+          "signup to save your result"
+        )}
+      </div>
     </>
   );
 };
