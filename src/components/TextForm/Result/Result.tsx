@@ -17,20 +17,18 @@ export const Result = () => {
   const [isResultSavedSuccess, toggleIsResultSavedSuccess] = useToggle(false);
 
   // store states
-  const { currentText, enteredText, resetEnteredText } = useTextStore(
-    (state) => ({
-      currentText: state.text,
-      enteredText: state.enteredText,
-      resetEnteredText: state.resetEnteredText,
-    })
-  );
+  const { currentText, enteredText } = useTextStore((state) => ({
+    currentText: state.text,
+    enteredText: state.enteredText,
+    resetEnteredText: state.resetEnteredText,
+  }));
 
   const [textWordsCount, setTextWordsCount] = useState<number>(0);
   useEffect(() => {
     setTextWordsCount(currentText.split(" ").length);
   }, [currentText]);
 
-  const { time, setTime } = useTimerStore((state) => ({
+  const { time } = useTimerStore((state) => ({
     time: state.timer,
     setTime: state.setTime,
   }));
